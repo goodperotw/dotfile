@@ -1,0 +1,11 @@
+log/*
+!log/.gitkeep
+*.deb
+*.gz
+*.tar
+*.data
+*.paxheader
+pax_global_header
+configs/fish/function
+configs/fish/conf.d
+!configs/fish/function/.keep
