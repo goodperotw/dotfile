@@ -58,6 +58,11 @@ installASDF(){
   sudo mv asdf /usr/local/bin/
   rm -f asdf.tar.gz
   mkdir -p $HOME/.asdf
+  local plugins=(ruby rust golang nodejs gleam)
+  for plugin in $plugins
+  do
+    asdf plugin add ${plugin}
+  done
 }
 
 configureBash(){
