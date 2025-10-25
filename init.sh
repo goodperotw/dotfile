@@ -333,11 +333,11 @@ __configureNvimFzf(){
 NvimFzf
 }
 
-#installAPTpackages
-#configureInputMethod
-#installASDF
+installAPTpackages
+configureInputMethod
+installASDF
 
-# configureBash
-# configureSSHkey
+configureBash
+configureSSHkey
 configureGit
-# configureNeovim
+configureNeovim
