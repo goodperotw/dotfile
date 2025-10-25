@@ -15,9 +15,10 @@ installAPTpackages(){
   inputMethod="fcitx5 fcitx5-chewing fcitx5-anthy fcitx5-pinyin"
   commonBuildDependencies="build-essential git curl wget"
   utilities="fzf fd-find ripgrep bat xclip neovim starship"
+  container="podman podman-compose qemu-system-x86"
 
   rubyDependencies="zlib1g-dev libreadline-dev libffi-dev libyaml-dev"
-  sudo apt-get install -yqq ${inputMethod} ${commonBuildDependencies} ${utilities} ${rubyDependencies}
+  sudo apt-get install -yqq ${inputMethod} ${commonBuildDependencies} ${utilities} ${rubyDependencies} ${container}
 }
 
 downloadFonts(){
