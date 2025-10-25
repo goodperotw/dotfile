@@ -66,12 +66,14 @@ configureBash(){
   _configureBashAlias
   _configureBashEnv
   _configureBashPath
+  _installZoxide
 cat << BashRC > $HOME/.bashrc_custom
 source \$HOME/.bashrc_custom_alias
 source \$HOME/.bashrc_custom_env
 source \$HOME/.bashrc_custom_path
 eval "\$(fzf --bash)"
 eval "\$(starship init bash)"
+eval "\$(zoxide init bash)"
 
 BashRC
 if [[ $(cat $HOME/.bashrc | grep 'bashrc_custom' | wc -l) -gt 0 ]]
@@ -128,7 +130,12 @@ BashEnv
 _configureBashPath(){
   cat << BashPath > $HOME/.bashrc_custom_path
   export PATH=\$PATH:\$ASDF_DIR/shims
+  export PATH=\$PATH:\$HOME/.local/bin
 BashPath
+}
+
+_installZoxide(){
+  curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 }
 
 configureSSHkey(){
