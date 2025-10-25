@@ -10,7 +10,7 @@ askForProcessing(){
 }
 
 installAPTpackages(){
-  askForProcessing 'install apt packages' || return
+  askForProcessing "install apt packages" || return
   printf "now installing APT packages...\r"
   inputMethod="fcitx5 fcitx5-chewing fcitx5-anthy fcitx5-pinyin"
   commonBuildDependencies="build-essential git curl wget"
@@ -19,6 +19,29 @@ installAPTpackages(){
 
   rubyDependencies="zlib1g-dev libreadline-dev libffi-dev libyaml-dev"
   apt-get install -yqq ${inputMethod} ${commonBuildDependencies} ${utilities} ${terminal} ${rubyDependencies}
+}
+
+downloadFonts(){
+  askForProcessing "download fonts" || return
+  mkdir -p $HOME/.local/share/fonts
+
+  # nerd fonts
+  local fontNames=(CascadiaCode FiraCode D2Coding Hasklig Lilex)
+  for fontName in $fontNames
+  do
+    curl -fLo ${fontName}.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/${fontName}.zip
+    unzip -j ${fontName}.zip '*.ttf' -d $HOME/.local/share/fonts && rm -f ${fontName}.zip
+  done
+
+  # jetbrain mono
+  curl -fLo JetBrainsMono.zip https://download.jetbrains.com/fonts/JetBrainsMono-2.304.zip
+  unzip -j JetBrainsMono.zip  '*.ttf' -d $HOME/.local/share/fonts/ && rm -f JetBrainsMono.zip
+
+  # victor
+  curl -fLo VictorMono.zip https://rubjo.github.io/victor-mono/VictorMonoAll.zip
+  unzip -j VictorMono.zip '*.ttf' -d $HOME/.local/share/fonts/ && rm -f VictorMono.zip
+
+  fc-cache -fv
 }
 
 configureInputMethod(){
@@ -358,6 +381,7 @@ NvimFzf
 }
 
 installAPTpackages
+downloadFonts
 configureInputMethod
 installASDF
 configureBash
