@@ -60,6 +60,7 @@ _configureBashAlias(){
   alias gck="git checkout"
   alias gc="git commit"
   alias gcm="gc -m"
+  alias gd="git diff"
 
   # navi
   alias b="cd .."
