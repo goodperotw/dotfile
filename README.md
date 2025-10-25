@@ -1,5 +1,7 @@
 # My Dotfile
 
-## bash
+## Install
 
-## neovim
+```sh
+curl -sL https://raw.githubusercontent.com/0711kps/dotfile/refs/heads/main/init.sh | bash
+```
