@@ -212,10 +212,6 @@ _configureNvimKeybind(){
   vm <C-e> <End>
 
 
-  nm <silent> <S-up> <C-w>k
-  nm <silent> <S-right> <C-w>l
-  nm <silent> <S-down> <C-w>j
-  nm <silent> <S-left> <C-w>h
   im <C-d> <Delete>
 
   " multi edit
@@ -275,8 +271,12 @@ _configureNvimWindow(){
   mkdir -p $HOME/.config/nvim
   cat << NvimWindow > $HOME/.config/nvim/window.vim
 " 分割視窗
-nm <C-w><Right> :vsplit<CR>
-nm <C-w><Down> :split<CR>
+nm <C-c><C-w><Right> :vsplit<CR>
+nm <C-c><C-w><Down> :split<CR>
+nm <silent> <C-w><up> <C-w>k
+nm <silent> <C-w><right> <C-w>l
+nm <silent> <C-w><down> <C-w>j
+nm <silent> <C-w><left> <C-w>h
 NvimWindow
 }
 
