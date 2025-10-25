@@ -1,5 +1,16 @@
+askForProcessing(){
+  local processingTarget="$1"
+  printf "Do you want to $processingTarget ?(y/N): -> "
+  read ans
+  # downcase the answer, btw, ${ans^^} for upcase
+  ans=${ans,,}
+  echo $ans
+  # return 0 if ans is yes, return 1 if ans is no
+  [[ $ans == "y" ]]
+}
 
 installAPTpackages(){
+  askForProcessing 'install apt packages' || return
   printf "now installing APT packages...\r"
   inputMethod="fcitx5 fcitx5-chewing fcitx5-anthy fcitx5-pinyin"
   commonBuildDependencies="build-essential git curl wget"
@@ -11,6 +22,7 @@ installAPTpackages(){
 }
 
 configureInputMethod(){
+  askForProcessing "configure input method" || return
   echo "please select Update input method config, and activate fcitx5 framework"
   im-config
   echo "please open up fcitx5 configuration window, and activate the input methods you need"
@@ -18,6 +30,7 @@ configureInputMethod(){
 }
 
 installASDF(){
+  askForProcessing "install asdf version manager" || return
   wget "https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-v0.18.0-linux-amd64.tar.gz" -O asdf.tar.gz
   tar xf asdf.tar.gz
   mv asdf /usr/local/bin/
@@ -26,6 +39,7 @@ installASDF(){
 }
 
 configureBash(){
+  askForProcessing "configure bash" || return
   _configureBashAlias
   _configureBashEnv
   _configureBashPath
@@ -94,6 +108,7 @@ BashPath
 }
 
 configureSSHkey(){
+  askForProcessing "configure ssh key" || return
   ssh-keygen -b 4096 -t ed25519 -f $HOME/.ssh/personal -q -N ""
   cat << SSHConfig >> $HOME/.ssh/config
 Host mygithub
@@ -104,12 +119,14 @@ SSHConfig
 }
 
 configureGit(){
+  askForProcessing "configure git" || return
   git config --global user.name "Pero.Xie"
   git config --global user.email "perox@duck.com"
   git config --global rebase.abbreviateCommands true
 }
 
 configureNeovim(){
+  askForProcessing "configure neovim" || return
   # download vim-plug
   mkdir -p $HOME/.config/nvim/autoload
   if [[ ! -f $HOME/.config/nvim/autoload/plug.vim ]]
