@@ -1,7 +1,7 @@
 askForProcessing(){
   local processingTarget="$1"
   printf "Do you want to $processingTarget ?(y/N): -> "
-  read ans
+  read ans < /dev/tty
   # downcase the answer, btw, ${ans^^} for upcase
   ans=${ans,,}
   echo $ans
