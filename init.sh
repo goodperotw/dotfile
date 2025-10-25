@@ -14,11 +14,10 @@ installAPTpackages(){
   printf "now installing APT packages...\r"
   inputMethod="fcitx5 fcitx5-chewing fcitx5-anthy fcitx5-pinyin"
   commonBuildDependencies="build-essential git curl wget"
-  utilities="fzf fd-find ripgrep bat xclip"
-  terminal="starship"
+  utilities="fzf fd-find ripgrep bat xclip neovim starship"
 
   rubyDependencies="zlib1g-dev libreadline-dev libffi-dev libyaml-dev"
-  sudo apt-get install -yqq ${inputMethod} ${commonBuildDependencies} ${utilities} ${terminal} ${rubyDependencies}
+  sudo apt-get install -yqq ${inputMethod} ${commonBuildDependencies} ${utilities} ${rubyDependencies}
 }
 
 downloadFonts(){
