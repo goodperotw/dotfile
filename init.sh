@@ -160,6 +160,7 @@ configureGit(){
   git config --global user.name "Pero.Xie"
   git config --global user.email "perox@duck.com"
   git config --global rebase.abbreviateCommands true
+  git config --global core.editor nvim
 }
 
 configurePodman(){
