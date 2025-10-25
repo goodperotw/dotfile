@@ -66,16 +66,17 @@ configureBash(){
   _configureBashEnv
   _configureBashPath
   _installZoxide
-cat << BashRC > $HOME/.bashrc_custom
+
+  cat << BashRC > $HOME/.bashrc_custom
 source \$HOME/.bashrc_custom_alias
 source \$HOME/.bashrc_custom_env
 source \$HOME/.bashrc_custom_path
 eval "\$(fzf --bash)"
 eval "\$(starship init bash)"
 eval "\$(zoxide init bash)"
-
 BashRC
-if [[ $(cat $HOME/.bashrc | grep 'bashrc_custom' | wc -l) -gt 0 ]]
+
+if [[ $(cat $HOME/.bashrc | grep 'bashrc_custom' | wc -l) -eq 0 ]]
 then
   echo "source \$HOME/.bashrc_custom" >> $HOME/.bashrc
 fi
