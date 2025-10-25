@@ -360,7 +360,6 @@ NvimFzf
 installAPTpackages
 configureInputMethod
 installASDF
-
 configureBash
 configureSSHkey
 configureGit
