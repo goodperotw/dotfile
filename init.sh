@@ -167,9 +167,9 @@ configurePodman(){
   askForProcessing "configure podman" || return
   sudo wget https://github.com/containers/gvisor-tap-vsock/releases/download/v0.8.7/gvproxy-linux-amd64 -O /usr/libexec/podman/gvproxy && sudo chmod +x /usr/libexec/podman/gvproxy
   curl -fsLo virtiofsd.zip https://gitlab.com/-/project/21523468/uploads/0298165d4cd2c73ca444a8c0f6a9ecc7/virtiofsd-v1.13.2.zip
-  sudo unzip -j virtiofsd.zip  -d /usr/local/libexec/podman
+  sudo unzip -jo virtiofsd.zip  -d /usr/local/libexec/podman && rm -f virtiofsd.zip
   podman machine init
-  podman machine start
+#  podman machine start
 }
 
 configureNeovim(){
