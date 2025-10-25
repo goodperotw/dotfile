@@ -18,7 +18,7 @@ installAPTpackages(){
   terminal="starship"
 
   rubyDependencies="zlib1g-dev libreadline-dev libffi-dev libyaml-dev"
-  apt-get install -yqq ${inputMethod} ${commonBuildDependencies} ${utilities} ${terminal} ${rubyDependencies}
+  sudo apt-get install -yqq ${inputMethod} ${commonBuildDependencies} ${utilities} ${terminal} ${rubyDependencies}
 }
 
 downloadFonts(){
@@ -56,7 +56,7 @@ installASDF(){
   askForProcessing "install asdf version manager" || return
   wget "https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-v0.18.0-linux-amd64.tar.gz" -O asdf.tar.gz
   tar xf asdf.tar.gz
-  mv asdf /usr/local/bin/
+  sudo mv asdf /usr/local/bin/
   rm -f asdf.tar.gz
   mkdir -p $HOME/.asdf
 }
