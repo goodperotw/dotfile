@@ -29,16 +29,16 @@ downloadFonts(){
   for fontName in $fontNames
   do
     curl -sfLo ${fontName}.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/${fontName}.zip
-    unzip -j ${fontName}.zip '*.ttf' -d $HOME/.local/share/fonts && rm -f ${fontName}.zip
+    unzip -jo ${fontName}.zip '*.ttf' -d $HOME/.local/share/fonts && rm -f ${fontName}.zip
   done
 
   # jetbrain mono
   curl -sfLo JetBrainsMono.zip https://download.jetbrains.com/fonts/JetBrainsMono-2.304.zip
-  unzip -j JetBrainsMono.zip  '*.ttf' -d $HOME/.local/share/fonts/ && rm -f JetBrainsMono.zip
+  unzip -jo JetBrainsMono.zip  '*.ttf' -d $HOME/.local/share/fonts/ && rm -f JetBrainsMono.zip
 
   # victor
   curl -sfLo VictorMono.zip https://rubjo.github.io/victor-mono/VictorMonoAll.zip
-  unzip -j VictorMono.zip '*.ttf' -d $HOME/.local/share/fonts/ && rm -f VictorMono.zip
+  unzip -jo VictorMono.zip '*.ttf' -d $HOME/.local/share/fonts/ && rm -f VictorMono.zip
 
   fc-cache -fv
 }
