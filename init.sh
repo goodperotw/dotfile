@@ -68,6 +68,7 @@ _configureBashAlias(){
   alias grbi="grb -i"
   alias grs="git reset"
   alias ga="git add"
+  alias gap="ga -p"
   alias gau="ga -u"
   alias gp="git push"
   alias gf="git fetch"
