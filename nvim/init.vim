@@ -1,6 +1,7 @@
 filetype on
 syntax on
 set cursorline
+set mouse=
 autocmd FileType * TSBufEnable highlight
 
 function! SourceRelatively(relative_path)
