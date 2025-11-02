@@ -1,16 +1,51 @@
+askForProcessing(){
+  local processingTarget="$1"
+  printf "Do you want to $processingTarget ?(y/N): -> "
+  read ans < /dev/tty
+  # downcase the answer, btw, ${ans^^} for upcase
+  ans=${ans,,}
+  echo $ans
+  # return 0 if ans is yes, return 1 if ans is no
+  [[ $ans == "y" ]]
+}
 
 installAPTpackages(){
+  askForProcessing "install apt packages" || return
   printf "now installing APT packages...\r"
   inputMethod="fcitx5 fcitx5-chewing fcitx5-anthy fcitx5-pinyin"
   commonBuildDependencies="build-essential git curl wget"
-  utilities="fzf fd-find ripgrep bat xclip"
-  terminal="starship"
+  utilities="fzf fd-find ripgrep bat xclip neovim starship"
+  container="podman podman-compose qemu-system-x86"
 
   rubyDependencies="zlib1g-dev libreadline-dev libffi-dev libyaml-dev"
-  apt-get install -yqq ${inputMethod} ${commonBuildDependencies} ${utilities} ${terminal} ${rubyDependencies}
+  sudo apt-get install -yqq ${inputMethod} ${commonBuildDependencies} ${utilities} ${rubyDependencies} ${container}
+}
+
+downloadFonts(){
+  askForProcessing "download fonts" || return
+  mkdir -p $HOME/.local/share/fonts
+
+  # nerd fonts
+  local fontNames=(CascadiaCode FiraCode D2Coding Hasklig Lilex)
+  for fontName in $fontNames
+  do
+    curl -sfLo ${fontName}.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/${fontName}.zip
+    unzip -jo ${fontName}.zip '*.ttf' -d $HOME/.local/share/fonts && rm -f ${fontName}.zip
+  done
+
+  # jetbrain mono
+  curl -sfLo JetBrainsMono.zip https://download.jetbrains.com/fonts/JetBrainsMono-2.304.zip
+  unzip -jo JetBrainsMono.zip  '*.ttf' -d $HOME/.local/share/fonts/ && rm -f JetBrainsMono.zip
+
+  # victor
+  curl -sfLo VictorMono.zip https://rubjo.github.io/victor-mono/VictorMonoAll.zip
+  unzip -jo VictorMono.zip '*.ttf' -d $HOME/.local/share/fonts/ && rm -f VictorMono.zip
+
+  fc-cache -fv
 }
 
 configureInputMethod(){
+  askForProcessing "configure input method" || return
   echo "please select Update input method config, and activate fcitx5 framework"
   im-config
   echo "please open up fcitx5 configuration window, and activate the input methods you need"
@@ -18,26 +53,36 @@ configureInputMethod(){
 }
 
 installASDF(){
+  askForProcessing "install asdf version manager" || return
   wget "https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-v0.18.0-linux-amd64.tar.gz" -O asdf.tar.gz
   tar xf asdf.tar.gz
-  mv asdf /usr/local/bin/
+  sudo mv asdf /usr/local/bin/
   rm -f asdf.tar.gz
   mkdir -p $HOME/.asdf
+  local plugins=(ruby rust golang nodejs gleam)
+  for plugin in $plugins
+  do
+    asdf plugin add ${plugin}
+  done
 }
 
 configureBash(){
+  askForProcessing "configure bash" || return
   _configureBashAlias
   _configureBashEnv
   _configureBashPath
-cat << BashRC > $HOME/.bashrc_custom
+  _installZoxide
+
+  cat << BashRC > $HOME/.bashrc_custom
 source \$HOME/.bashrc_custom_alias
 source \$HOME/.bashrc_custom_env
 source \$HOME/.bashrc_custom_path
 eval "\$(fzf --bash)"
 eval "\$(starship init bash)"
-
+eval "\$(zoxide init bash)"
 BashRC
-if [[ $(cat $HOME/.bashrc | grep 'bashrc_custom' | wc -l) -gt 0 ]]
+
+if [[ $(cat $HOME/.bashrc | grep 'bashrc_custom' | wc -l) -eq 0 ]]
 then
   echo "source \$HOME/.bashrc_custom" >> $HOME/.bashrc
 fi
@@ -45,38 +90,44 @@ fi
 
 _configureBashAlias(){
   cat << BashAlias > $HOME/.bashrc_custom_alias
-  # git
-  alias gst="git status"
-  alias glg="git log"
-  alias gb="git branch"
-  alias gbm="gb -m"
-  alias grb="git rebase"
-  alias grbi="grb -i"
-  alias grs="git reset"
-  alias ga="git add"
-  alias gau="ga -u"
-  alias gp="git push"
-  alias gf="git fetch"
-  alias gck="git checkout"
-  alias gc="git commit"
-  alias gcm="gc -m"
+# git
+alias gst="git status"
+alias glg="git log"
+alias gb="git branch"
+alias gbm="gb -m"
+alias grb="git rebase"
+alias grbi="grb -i"
+alias grs="git reset"
+alias ga="git add"
+alias gap="ga -p"
+alias gau="ga -u"
+alias gp="git push"
+alias gf="git fetch"
+alias gck="git checkout"
+alias gc="git commit"
+alias gcm="gc -m"
+alias gd="git diff"
 
-  # navi
-  alias b="cd .."
-  alias bb="cd ../.."
-  alias c="clear"
+# navi
+alias b="cd .."
+alias bb="cd ../.."
+alias c="clear"
 
-  # ruby bundler
-  alias bd="bundle"
-  alias bdi="bd install"
-  alias bdu="bd update"
-  alias bde="bd exec"
+# ruby bundler
+alias bd="bundle"
+alias bdi="bd install"
+alias bdu="bd update"
+alias bde="bd exec"
 
-  # others
-  alias vim="nvim"
-  alias v="vim"
-  alias fd="fdfind"
-  alias t="batcat"
+# others
+alias vim="nvim"
+alias v="vim"
+alias fd="fdfind"
+alias t="batcat"
+
+# podman
+alias docker="podman"
+alias dk="docker"
 BashAlias
 }
 
@@ -89,10 +140,16 @@ BashEnv
 _configureBashPath(){
   cat << BashPath > $HOME/.bashrc_custom_path
   export PATH=\$PATH:\$ASDF_DIR/shims
+  export PATH=\$PATH:\$HOME/.local/bin
 BashPath
 }
 
+_installZoxide(){
+  curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+}
+
 configureSSHkey(){
+  askForProcessing "configure ssh key" || return
   ssh-keygen -b 4096 -t ed25519 -f $HOME/.ssh/personal -q -N ""
   cat << SSHConfig >> $HOME/.ssh/config
 Host mygithub
@@ -103,17 +160,29 @@ SSHConfig
 }
 
 configureGit(){
+  askForProcessing "configure git" || return
   git config --global user.name "Pero.Xie"
   git config --global user.email "perox@duck.com"
   git config --global rebase.abbreviateCommands true
+  git config --global core.editor nvim
+}
+
+configurePodman(){
+  askForProcessing "configure podman" || return
+  sudo wget https://github.com/containers/gvisor-tap-vsock/releases/download/v0.8.7/gvproxy-linux-amd64 -O /usr/libexec/podman/gvproxy && sudo chmod +x /usr/libexec/podman/gvproxy
+  curl -fsLo virtiofsd.zip https://gitlab.com/-/project/21523468/uploads/0298165d4cd2c73ca444a8c0f6a9ecc7/virtiofsd-v1.13.2.zip
+  sudo unzip -jo virtiofsd.zip  -d /usr/local/libexec/podman && rm -f virtiofsd.zip
+  podman machine init
+#  podman machine start
 }
 
 configureNeovim(){
+  askForProcessing "configure neovim" || return
   # download vim-plug
   mkdir -p $HOME/.config/nvim/autoload
   if [[ ! -f $HOME/.config/nvim/autoload/plug.vim ]]
   then
-    curl -fLo $HOME/.config/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    curl -sfLo $HOME/.config/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   fi
   _configureNvimKeybind
   _configureNvimAutocomplete
@@ -130,6 +199,11 @@ _configureNvimInit(){
 filetype on
 syntax on
 set cursorline
+set number
+set mouse=
+" highlight trailing whitespace
+:highlight ExtraWhitespace ctermbg=red guibg=red
+:match ExtraWhitespace /\s\+$/
 autocmd FileType * TSBufEnable highlight
 
 function! SourceRelatively(relative_path)
@@ -188,10 +262,6 @@ _configureNvimKeybind(){
   vm <C-e> <End>
 
 
-  nm <silent> <S-up> <C-w>k
-  nm <silent> <S-right> <C-w>l
-  nm <silent> <S-down> <C-w>j
-  nm <silent> <S-left> <C-w>h
   im <C-d> <Delete>
 
   " multi edit
@@ -251,8 +321,12 @@ _configureNvimWindow(){
   mkdir -p $HOME/.config/nvim
   cat << NvimWindow > $HOME/.config/nvim/window.vim
 " 分割視窗
-nm <C-w><Right> :vsplit<CR>
-nm <C-w><Down> :split<CR>
+nm <C-c><C-w><Right> :vsplit<CR>
+nm <C-c><C-w><Down> :split<CR>
+nm <silent> <C-w><up> <C-w>k
+nm <silent> <C-w><right> <C-w>l
+nm <silent> <C-w><down> <C-w>j
+nm <silent> <C-w><left> <C-w>h
 NvimWindow
 }
 
@@ -333,11 +407,12 @@ __configureNvimFzf(){
 NvimFzf
 }
 
-#installAPTpackages
-#configureInputMethod
-#installASDF
-
-# configureBash
-# configureSSHkey
+installAPTpackages
+downloadFonts
+configureInputMethod
+installASDF
+configureBash
+configureSSHkey
 configureGit
-# configureNeovim
+configurePodman
+configureNeovim
