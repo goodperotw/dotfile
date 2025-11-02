@@ -90,40 +90,44 @@ fi
 
 _configureBashAlias(){
   cat << BashAlias > $HOME/.bashrc_custom_alias
-  # git
-  alias gst="git status"
-  alias glg="git log"
-  alias gb="git branch"
-  alias gbm="gb -m"
-  alias grb="git rebase"
-  alias grbi="grb -i"
-  alias grs="git reset"
-  alias ga="git add"
-  alias gap="ga -p"
-  alias gau="ga -u"
-  alias gp="git push"
-  alias gf="git fetch"
-  alias gck="git checkout"
-  alias gc="git commit"
-  alias gcm="gc -m"
-  alias gd="git diff"
+# git
+alias gst="git status"
+alias glg="git log"
+alias gb="git branch"
+alias gbm="gb -m"
+alias grb="git rebase"
+alias grbi="grb -i"
+alias grs="git reset"
+alias ga="git add"
+alias gap="ga -p"
+alias gau="ga -u"
+alias gp="git push"
+alias gf="git fetch"
+alias gck="git checkout"
+alias gc="git commit"
+alias gcm="gc -m"
+alias gd="git diff"
 
-  # navi
-  alias b="cd .."
-  alias bb="cd ../.."
-  alias c="clear"
+# navi
+alias b="cd .."
+alias bb="cd ../.."
+alias c="clear"
 
-  # ruby bundler
-  alias bd="bundle"
-  alias bdi="bd install"
-  alias bdu="bd update"
-  alias bde="bd exec"
+# ruby bundler
+alias bd="bundle"
+alias bdi="bd install"
+alias bdu="bd update"
+alias bde="bd exec"
 
-  # others
-  alias vim="nvim"
-  alias v="vim"
-  alias fd="fdfind"
-  alias t="batcat"
+# others
+alias vim="nvim"
+alias v="vim"
+alias fd="fdfind"
+alias t="batcat"
+
+# podman
+alias docker="podman"
+alias dk="docker"
 BashAlias
 }
 
