@@ -108,6 +108,8 @@ alias gck="git checkout"
 alias gc="git commit"
 alias gcm="gc -m"
 alias gd="git diff"
+alias grmt="git remote"
+alias gsh="git stash"
 
 # navi
 alias b="cd .."
