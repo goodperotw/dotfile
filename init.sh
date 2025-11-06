@@ -118,9 +118,11 @@ alias c="clear"
 
 # ruby bundler
 alias bd="bundle"
-alias bdi="bd install"
-alias bdu="bd update"
+alias bda="bd add"
 alias bde="bd exec"
+alias bdi="bd install"
+alias bdr="bd remove"
+alias bdu="bd update"
 
 # others
 alias vim="nvim"
