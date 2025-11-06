@@ -1,10 +1,11 @@
 askForProcessing(){
   local processingTarget="$1"
-  printf "Do you want to $processingTarget ?(y/N): -> "
+  printf "Do you want to $processingTarget ?(y/N/q): -> "
   read ans < /dev/tty
   # downcase the answer, btw, ${ans^^} for upcase
   ans=${ans,,}
-  echo $ans
+  # if the anser is q, quit program immediately
+  [[ $ans == "q" ]] && exit
   # return 0 if ans is yes, return 1 if ans is no
   [[ $ans == "y" ]]
 }
