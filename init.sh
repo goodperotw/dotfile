@@ -374,6 +374,12 @@ setlocal tabstop=2
 setlocal shiftwidth=2
 setlocal expandtab
 NvimFtPluginSh
+
+  cat << NvimFtPluginCss > $HOME/.config/nvim/ftplugin/css.vim
+setlocal tabstop=2
+setlocal shiftwidth=2
+setlocal expandtab
+NvimFtPluginCss
 }
 
 
