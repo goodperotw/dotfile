@@ -1,10 +1,11 @@
 askForProcessing(){
   local processingTarget="$1"
-  printf "Do you want to $processingTarget ?(y/N): -> "
+  printf "Do you want to $processingTarget ?(y/N/q): -> "
   read ans < /dev/tty
   # downcase the answer, btw, ${ans^^} for upcase
   ans=${ans,,}
-  echo $ans
+  # if the anser is q, quit program immediately
+  [[ $ans == "q" ]] && exit
   # return 0 if ans is yes, return 1 if ans is no
   [[ $ans == "y" ]]
 }
@@ -13,7 +14,7 @@ installAPTpackages(){
   askForProcessing "install apt packages" || return
   printf "now installing APT packages...\r"
   inputMethod="fcitx5 fcitx5-chewing fcitx5-anthy fcitx5-pinyin"
-  commonBuildDependencies="build-essential git curl wget"
+  commonBuildDependencies="build-essential git curl wget cmake"
   utilities="fzf fd-find ripgrep bat xclip neovim starship"
   container="podman podman-compose qemu-system-x86"
 
@@ -107,6 +108,8 @@ alias gck="git checkout"
 alias gc="git commit"
 alias gcm="gc -m"
 alias gd="git diff"
+alias grmt="git remote"
+alias gsh="git stash"
 
 # navi
 alias b="cd .."
@@ -115,9 +118,11 @@ alias c="clear"
 
 # ruby bundler
 alias bd="bundle"
-alias bdi="bd install"
-alias bdu="bd update"
+alias bda="bd add"
 alias bde="bd exec"
+alias bdi="bd install"
+alias bdr="bd remove"
+alias bdu="bd update"
 
 # others
 alias vim="nvim"
@@ -369,6 +374,12 @@ setlocal tabstop=2
 setlocal shiftwidth=2
 setlocal expandtab
 NvimFtPluginSh
+
+  cat << NvimFtPluginCss > $HOME/.config/nvim/ftplugin/css.vim
+setlocal tabstop=2
+setlocal shiftwidth=2
+setlocal expandtab
+NvimFtPluginCss
 }
 
 
