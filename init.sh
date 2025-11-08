@@ -15,7 +15,7 @@ installAPTpackages(){
   printf "now installing APT packages...\r"
   inputMethod="fcitx5 fcitx5-chewing fcitx5-anthy fcitx5-pinyin"
   commonBuildDependencies="build-essential git curl wget cmake"
-  utilities="fzf fd-find ripgrep bat xclip neovim starship"
+  utilities="fzf fd-find ripgrep bat xclip neovim"
   container="podman podman-compose qemu-system-x86"
 
   rubyDependencies="zlib1g-dev libreadline-dev libffi-dev libyaml-dev"
@@ -51,6 +51,10 @@ configureInputMethod(){
   im-config
   echo "please open up fcitx5 configuration window, and activate the input methods you need"
   fcitx5-configtool
+}
+
+installStarship(){
+  curl -sS https://starship.rs/install.sh | sh
 }
 
 installASDF(){
@@ -421,6 +425,7 @@ NvimFzf
 installAPTpackages
 downloadFonts
 configureInputMethod
+installStarhip
 installASDF
 configureBash
 configureSSHkey
