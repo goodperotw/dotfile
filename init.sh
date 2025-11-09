@@ -54,6 +54,7 @@ configureInputMethod(){
 }
 
 installStarship(){
+  askForProcessing "configure starship" || return
   curl -sS https://starship.rs/install.sh | sh
 }
 
@@ -431,7 +432,7 @@ NvimFzf
 installAPTpackages
 downloadFonts
 configureInputMethod
-installStarhip
+installStarship
 installASDF
 configureBash
 configureSSHkey
