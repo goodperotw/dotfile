@@ -345,7 +345,8 @@ _configureNvimPlugins(){
   cat << NvimPlugins > $HOME/.config/nvim/plugins.vim
 call plug#begin()
 
-im <C-'> <Plug>(emmet-expand-abbr)
+nm <C-c>' <Plug>(emmet-expand-abbr)
+im <C-c>' <Plug>(emmet-expand-abbr)
 
 " List your plugins here
 Plug 'easymotion/vim-easymotion'
