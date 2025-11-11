@@ -17,9 +17,10 @@ installAPTpackages(){
   commonBuildDependencies="build-essential git curl wget cmake"
   utilities="fzf fd-find ripgrep bat xclip neovim"
   container="podman podman-compose qemu-system-x86"
+  desktopApps="mpv"
 
   rubyDependencies="zlib1g-dev libreadline-dev libffi-dev libyaml-dev"
-  sudo apt-get install -yqq ${inputMethod} ${commonBuildDependencies} ${utilities} ${rubyDependencies} ${container}
+  sudo apt-get install -yqq ${inputMethod} ${commonBuildDependencies} ${utilities} ${rubyDependencies} ${container} ${desktopApps}
 }
 
 downloadFonts(){
