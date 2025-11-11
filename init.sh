@@ -15,7 +15,7 @@ installAPTpackages(){
   printf "now installing APT packages...\r"
   inputMethod="fcitx5 fcitx5-chewing fcitx5-anthy fcitx5-pinyin"
   commonBuildDependencies="build-essential git curl wget cmake"
-  utilities="fzf fd-find ripgrep bat xclip neovim"
+  utilities="fzf fd-find ripgrep bat xclip neovim httpie"
   container="podman podman-compose qemu-system-x86"
   desktopApps="mpv"
 
