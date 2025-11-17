@@ -203,6 +203,7 @@ configureNeovim(){
   _configureNvimPluginsConfig
   _configureNvimInit
   nvim -c ":PlugInstall | qa"
+  nvim -c "TSInstall typescript ruby python rust go javascript | qa"
 }
 
 _configureNvimInit(){
