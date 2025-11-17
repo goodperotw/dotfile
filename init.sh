@@ -203,7 +203,7 @@ configureNeovim(){
   _configureNvimPluginsConfig
   _configureNvimInit
   nvim -c ":PlugInstall | qa"
-  nvim -c "TSInstall typescript ruby python rust go javascript | qa"
+  nvim -c "TSInstallSync typescript ruby python rust go javascript | qa"
 }
 
 _configureNvimInit(){
@@ -312,7 +312,7 @@ function! s:BufferKeywordOmni(findstart, base) abort
         let lines = getbufline(b, 1, '$')
         for l in lines
           for w in split(l, '[ ()"'']\+')
-            if w =~# '' . a:base && strlen(w) > 2
+            if w =~# '^' . a:base && strlen(w) > 2
               let words[w] = 1
             endif
           endfor
