@@ -239,48 +239,51 @@ NvimInit
 _configureNvimKeybind(){
   mkdir -p $HOME/.config/nvim
   cat << NvimKeybind > $HOME/.config/nvim/keybind.vim
-  " 快捷鍵設定
-  nm <C-p> <Up>
-  im <C-p> <Up>
-  vm <C-p> <Up>
+" 快捷鍵設定
+nm <C-p> <Up>
+im <C-p> <Up>
+vm <C-p> <Up>
 
-  nm <C-v> <PageDown>
-  im <C-v> <PageDown>
-  vm <C-v> <PageDown>
+nm <C-v> <PageDown>
+im <C-v> <PageDown>
+vm <C-v> <PageDown>
 
-  nm <C-u> <PageUp>
-  im <C-u> <PageUp>
-  vm <C-u> <PageUp>
+nm <C-u> <PageUp>
+im <C-u> <PageUp>
+vm <C-u> <PageUp>
 
-  nm <C-n> <Down>
-  im <C-n> <Down>
-  vm <C-n> <Down>
+nm <C-n> <Down>
+im <C-n> <Down>
+vm <C-n> <Down>
 
-  nm <C-b> <Left>
-  im <C-b> <Left>
-  vm <C-b> <Left>
+nm <C-b> <Left>
+im <C-b> <Left>
+vm <C-b> <Left>
 
-  nm <C-f> <Right>
-  im <C-f> <Right>
-  vm <C-f> <Right>
+nm <C-f> <Right>
+im <C-f> <Right>
+vm <C-f> <Right>
 
-  nm <C-a> <Home>
-  im <C-a> <Home>
-  vm <C-a> <Home>
+nm <C-a> <Home>
+im <C-a> <Home>
+vm <C-a> <Home>
 
-  nm <C-e> <End>
-  im <C-e> <End>
-  vm <C-e> <End>
+nm <C-e> <End>
+im <C-e> <End>
+vm <C-e> <End>
 
 
-  im <C-d> <Delete>
+im <C-d> <Delete>
 
-  " multi edit
-  nm <C-x><C-n> cgn
+" multi edit
+nm <C-x><C-n> cgn
 
-  im <C-\> <ESC>
-  vm <C-\> <ESC>
-  nm <C-\> <ESC>
+im <C-\> <ESC>
+vm <C-\> <ESC>
+nm <C-\> <ESC>
+
+" 仿造 emd$acs 的刪除游標後同一行的內容
+im <C-k> <ESC><right>d$i<right>
 NvimKeybind
 }
 
