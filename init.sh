@@ -360,6 +360,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
 Plug 'folke/tokyonight.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'cohama/lexima.vim'
 
 call plug#end()
 NvimPlugins
