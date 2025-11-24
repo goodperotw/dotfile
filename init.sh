@@ -196,10 +196,8 @@ configureNeovim(){
     curl -sfLo $HOME/.config/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   fi
   _configureNvimKeybind
-  _configureNvimAutocomplete
   _configureNvimWindow
   _configureNvimPlugins
-  _configureNvimFtPlugin
   _configureNvimPluginsConfig
   _configureNvimInit
   nvim -c ":PlugInstall | qa"
