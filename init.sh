@@ -230,7 +230,7 @@ vim.opt.cursorcolumn = true
 vim.api.nvim_set_hl(0, 'ExtraWhitespace', { ctermbg = 'red', bg = 'red' })
 vim.api.nvim_create_autocmd({ 'BufWinEnter', 'InsertLeave' }, {
   pattern = '*',
-  command = 'match ExtraWhitespace /\\s\\+$/',
+  command = 'match ExtraWhitespace /\\\s+$/',
 })
 
 --------------------------------------------------
@@ -271,14 +271,13 @@ source_lua_relatively('keybind')
 source_lua_relatively('plugins-config/fzf')
 source_lua_relatively('plugins-config/easymotion')
 source_lua_relatively('plugins-config/commentary')
-source_lua_relatively('plugins-config/lsp')
 source_lua_relatively('plugins-config/cmp')
 NvimInit
 }
 
 _configureNvimKeybind(){
   mkdir -p $HOME/.config/nvim
-  cat << NvimKeybind > $HOME/.config/nvim/keybind.vim
+  cat << NvimKeybind > $HOME/.config/nvim/keybind.lua
 -- 快捷鍵設定
 
 -- 上下左右、翻頁、首尾
@@ -315,7 +314,7 @@ keymap('i', '<C-d>', '<Delete>')
 keymap('n', '<C-x><C-n>', 'cgn')
 
 -- ESC（退出 insert/visual/normal 模式）
-keymap({'n', 'i', 'v'}, '<C-\\>', '<Esc>')
+keymap({'n', 'i', 'v'}, '<C-\\\>', '<Esc>')
 keymap({'n', 'i', 'v'}, '<C-g>', '<Esc>')
 
 -- 模仿 emacs 的 <C-k>：刪除游標後到行尾的內容
@@ -328,7 +327,7 @@ NvimKeybind
 
 _configureNvimWindow(){
   mkdir -p $HOME/.config/nvim
-  cat << NvimWindow > $HOME/.config/nvim/window.vim
+  cat << NvimWindow > $HOME/.config/nvim/window.lua
 -- 視窗導航
 -- -- 註解
 vim.keymap.set('n', '<C-c><C-w><Right>', ':vsplit<CR>', { silent = true  })
@@ -368,8 +367,8 @@ NvimPlugins
 }
 
 _configureNvimPluginsConfig(){
-  __configureNvimCmp
   __configureNvimCommentary
+  __configureNvimCmp
   __configureNvimEasymotion
   __configureNvimFzf
 }
@@ -406,7 +405,7 @@ mapping = cmp.mapping.preset.insert({
   ['<C-f>'] = cmp.mapping.scroll_docs(4),
   ['<C-Space>'] = cmp.mapping.complete(),
   ['<C-e>'] = cmp.mapping.abort(),
-  ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set "select" to "false" to only confirm explicitly selected items.
 }),
 sources = cmp.config.sources({
   { name = 'nvim_lsp' },
@@ -416,7 +415,7 @@ sources = cmp.config.sources({
 })
 })
 
--- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+-- Use buffer source for "/" and "?" (if you enabled "native_menu", this won't work anymore).
 cmp.setup.cmdline({ '/', '?' }, {
 mapping = cmp.mapping.preset.cmdline(),
 sources = {
@@ -424,7 +423,7 @@ sources = {
 }
 })
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+-- Use cmdline & path source for ':' (if you enabled "native_menu", this won't work anymore).
 cmp.setup.cmdline(':', {
 mapping = cmp.mapping.preset.cmdline(),
 sources = cmp.config.sources({
@@ -458,7 +457,7 @@ NvimEasymotion
 
 __configureNvimFzf(){
   mkdir -p $HOME/.config/nvim/plugins-config
-  cat << NvimFzf > $HOME/.config/nvim/plugins-config/fzf.vim
+  cat << NvimFzf > $HOME/.config/nvim/plugins-config/fzf.lua
 -- FZF 功能（使用 <Cmd> 避免模式切換）
 vim.keymap.set('n', '<C-c><C-f>', '<Cmd>Files<CR>')
 vim.keymap.set('n', '<C-c><C-b>', '<Cmd>Buffers<CR>')
