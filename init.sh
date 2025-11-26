@@ -367,10 +367,31 @@ NvimPlugins
 }
 
 _configureNvimPluginsConfig(){
-  __configureNvimCommentary
+  __configureNvimLsp
   __configureNvimCmp
+  __configureNvimCommentary
   __configureNvimEasymotion
   __configureNvimFzf
+}
+
+__configureNvimLsp(){
+  cat << NvimLsp > $HOME/.config/nvim/plugins-config/lsp.lua
+-- Python
+vim.lsp.enable('pyright')
+-- Ruby
+vim.lsp.enable('ruby_lsp')
+-- JS, TS
+vim.lsp.enable('ts_ls')
+-- Rust
+vim.lsp.enable('rust_analyzer')
+-- Gleam
+vim.lsp.enable('gleam')
+
+vim.lsp.enable('clangd')
+vim.diagnostic.config({
+  virtual_text = true
+})
+NvimLsp
 }
 
 __configureNvimCmp(){
