@@ -271,6 +271,7 @@ source_lua_relatively('keybind')
 source_lua_relatively('plugins-config/fzf')
 source_lua_relatively('plugins-config/easymotion')
 source_lua_relatively('plugins-config/commentary')
+source_lua_relatively('plugins-config/lsp')
 source_lua_relatively('plugins-config/cmp')
 NvimInit
 }
