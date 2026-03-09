@@ -271,6 +271,7 @@ source_lua_relatively('keybind')
 source_lua_relatively('plugins-config/fzf')
 source_lua_relatively('plugins-config/easymotion')
 source_lua_relatively('plugins-config/commentary')
+source_lua_relatively('plugins-config/lsp')
 source_lua_relatively('plugins-config/cmp')
 NvimInit
 }
@@ -367,10 +368,31 @@ NvimPlugins
 }
 
 _configureNvimPluginsConfig(){
-  __configureNvimCommentary
+  __configureNvimLsp
   __configureNvimCmp
+  __configureNvimCommentary
   __configureNvimEasymotion
   __configureNvimFzf
+}
+
+__configureNvimLsp(){
+  cat << NvimLsp > $HOME/.config/nvim/plugins-config/lsp.lua
+-- Python
+vim.lsp.enable('pyright')
+-- Ruby
+vim.lsp.enable('ruby_lsp')
+-- JS, TS
+vim.lsp.enable('ts_ls')
+-- Rust
+vim.lsp.enable('rust_analyzer')
+-- Gleam
+vim.lsp.enable('gleam')
+
+vim.lsp.enable('clangd')
+vim.diagnostic.config({
+  virtual_text = true
+})
+NvimLsp
 }
 
 __configureNvimCmp(){
@@ -396,7 +418,7 @@ mapping = cmp.mapping.preset.insert({
   end, { 'i', 'c' }),
   ['<C-p>'] = cmp.mapping(function(fallback)
     if cmp.visible() then
-      cmp.select_next_item()
+      cmp.select_prev_item()
     else
       fallback()
     end
@@ -457,12 +479,12 @@ NvimEasymotion
 
 __configureNvimFzf(){
   mkdir -p $HOME/.config/nvim/plugins-config
-  cat << NvimFzf > $HOME/.config/nvim/plugins-config/fzf.lua
+  cat << NvimFzf > $HOME/.config/nvim/plugins-config/fzf.vim
 -- FZF 功能（使用 <Cmd> 避免模式切換）
 vim.keymap.set('n', '<C-c><C-f>', '<Cmd>Files<CR>')
 vim.keymap.set('n', '<C-c><C-b>', '<Cmd>Buffers<CR>')
 vim.keymap.set('n', '<C-c><C-r>', '<Cmd>Rg<CR>')
-vim.keymap.set('n', '/', '<Cmd>BLines<CR>')
+vim.keymap.set('n', '<C-c>/', '<Cmd>Lines<CR>')
 NvimFzf
 }
 
