@@ -480,7 +480,7 @@ NvimEasymotion
 
 __configureNvimFzf(){
   mkdir -p $HOME/.config/nvim/plugins-config
-  cat << NvimFzf > $HOME/.config/nvim/plugins-config/fzf.vim
+  cat << NvimFzf > $HOME/.config/nvim/plugins-config/fzf.lua
 -- FZF 功能（使用 <Cmd> 避免模式切換）
 vim.keymap.set('n', '<C-c><C-f>', '<Cmd>Files<CR>')
 vim.keymap.set('n', '<C-c><C-b>', '<Cmd>Buffers<CR>')
