@@ -485,7 +485,7 @@ __configureNvimFzf(){
 vim.keymap.set('n', '<C-c><C-f>', '<Cmd>Files<CR>')
 vim.keymap.set('n', '<C-c><C-b>', '<Cmd>Buffers<CR>')
 vim.keymap.set('n', '<C-c><C-r>', '<Cmd>Rg<CR>')
-vim.keymap.set('n', '<C-c>/', '<Cmd>Lines<CR>')
+vim.keymap.set('n', '<C-c>/', '<Cmd>BLines<CR>')
 NvimFzf
 }
 
