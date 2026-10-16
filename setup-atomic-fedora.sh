@@ -54,10 +54,13 @@ fi
 
 binstall_cmd_packages bat fd fzf httpie mise ripgrep starship vim xclip zoxide
 
+echo "$(starship init bash)" >> ~/.bashrc
+eval "$(starship init bash)"
+echo "$(zoxide init bash)" >> ~/.bashrc
+eval "$(zoxide init bash)"
+
 # installing code editor vscodium
 [[ ! $(flatpak list | rg VSCodium) ]] && flatpak install -y flathub com.vscodium.codium
-# installing code editor zed (if not installed)
-[[ ! $(command -v zed) ]] && curl -f https://zed.dev/install.sh | bash
 
 # setup ssh key
 if [[ ! -f ~/.ssh/my-hub-key ]]
