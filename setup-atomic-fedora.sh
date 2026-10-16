@@ -54,10 +54,17 @@ fi
 
 binstall_cmd_packages bat fd fzf httpie mise ripgrep starship vim xclip zoxide
 
-echo "$(starship init bash)" >> ~/.bashrc
-eval "$(starship init bash)"
-echo "$(zoxide init bash)" >> ~/.bashrc
-eval "$(zoxide init bash)"
+if [[ ! $(command -v z) ]]
+then
+  echo "$(zoxide init bash)" >> ~/.bashrc
+  eval "$(zoxide init bash)"
+fi
+
+if [[ ! $(cat ~/.bashrc | rg starship) ]]
+then
+  echo "$(starship init bash)" >> ~/.bashrc
+  eval "$(starship init bash)"
+fi
 
 # installing code editor vscodium
 [[ ! $(flatpak list | rg VSCodium) ]] && flatpak install -y flathub com.vscodium.codium
