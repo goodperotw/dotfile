@@ -10,7 +10,7 @@ import subprocess
 
 input_method_pkgs = ['fcitx5', 'fcitx5-configtool', 'fcitx5-chewing', 'fcitx5-mozc', 'fcitx5-chinese-addons']
 game_related_pkgs = ['cachyos-gaming-applications', 'cachyos-gaming-applications', 'gamescope', 'mangohud', 'polkit']
-dev_pkgs = ['mise', 'gnome-terminal', 'starship', 'xclip', 'vscodium']
+dev_pkgs = ['mise', 'gnome-terminal', 'xclip', 'vscodium']
 
 pkg_to_remove = ['alacritty', 'firefox']
 
@@ -27,12 +27,6 @@ if not which('zoxide'):
 if which('zoxide') and not which('z'):
   zoxide init xonsh >> ~/.xonshrc
   execx($(zoxide init xonsh))
-
-if not which('starship'):
-  sudo pacman -S starship
-
-if not 'starship' in source_file.read_text():
-  starship init xonsh >> ~/.xonshrc
 
 # setup ssh key
 ssh_key_file = Path('~/.ssh/my-hub-key').expanduser()
