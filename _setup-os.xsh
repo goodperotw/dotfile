@@ -21,8 +21,6 @@ optional_pkgs = [
   }
 ]
 
-pkg_to_remove = ['alacritty', 'firefox']
-
 target_pkgs = basic_pkgs
 
 print('optional packages:')
@@ -35,9 +33,6 @@ for i in ans:
   target_pkgs.extend(optional_pkgs[i]['pkgs'])
 
 ![sudo pacman -S --needed @(target_pkgs)]
-
-# ignore even if those packages not exists anymore in the future
-subprocess.run(['sudo', 'pacman', '-R'] + pkg_to_remove, check=False)
 
 source_file = Path('~/.xonshrc').expanduser()
 
@@ -194,5 +189,9 @@ with source_file.open('a', encoding='utf-8') as f:
   f.write("""
 $PATH.insert(0, '~/.local/share/mise/shims')
 """)
+
+pkg_to_remove = ['alacritty', 'firefox', 'fish', 'fisher', 'fish-autopair', 'fish-pure-prompt', 'cachyos-fish-config']
+# ignore even if those packages not exists anymore in the future
+subprocess.run(['sudo', 'pacman', '-R'] + pkg_to_remove, check=False)
 
 source ~/.xonshrc
