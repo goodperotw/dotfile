@@ -8,13 +8,33 @@ from shutil import which
 from pathlib import Path
 import subprocess
 
-input_method_pkgs = ['fcitx5', 'fcitx5-configtool', 'fcitx5-chewing', 'fcitx5-mozc', 'fcitx5-chinese-addons']
-game_related_pkgs = ['cachyos-gaming-applications', 'cachyos-gaming-applications', 'gamescope', 'mangohud', 'polkit']
-dev_pkgs = ['mise', 'gnome-terminal', 'xclip', 'vscodium']
+basic_pkgs = ['fcitx5', 'fcitx5-configtool', 'fcitx5-chewing', 'fcitx5-mozc', 'fcitx5-chinese-addons', 'gnome-terminal']
+
+optional_pkgs = [
+  {
+    'name': 'game',
+    'pkgs': ['cachyos-gaming-applications', 'cachyos-gaming-applications', 'gamescope', 'mangohud', 'polkit', 'steam']
+  },
+  {
+    'name': 'developer',
+    'pkgs': ['mise', 'xclip', 'vscodium']
+  }
+]
 
 pkg_to_remove = ['alacritty', 'firefox']
 
-![sudo pacman -S --needed @(input_method_pkgs) @(game_related_pkgs) @(dev_pkgs)]
+target_pkgs = basic_pkgs
+
+print('optional packages:')
+for i, optional_item in enumerate(optional_pkgs):
+  print(f"  {i}) {optional_item['name']}")
+
+print('selected optional packages with index, separate with comma')
+ans = list(map(lambda i: int(i),input().split(',')))
+for i in ans:
+  target_pkgs.extend(optional_pkgs[i]['pkgs'])
+
+![sudo pacman -S --needed @(target_pkgs)]
 
 # ignore even if those packages not exists anymore in the future
 subprocess.run(['sudo', 'pacman', '-R'] + pkg_to_remove, check=False)
