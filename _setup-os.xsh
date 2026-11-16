@@ -8,7 +8,7 @@ from shutil import which
 from pathlib import Path
 import subprocess
 
-basic_pkgs = ['fcitx5', 'fcitx5-configtool', 'fcitx5-chewing', 'fcitx5-mozc', 'fcitx5-chinese-addons', 'gnome-terminal']
+basic_pkgs = ['fcitx5', 'fcitx5-configtool', 'fcitx5-chewing', 'fcitx5-mozc', 'fcitx5-chinese-addons', 'gnome-terminal', 'mpv']
 
 optional_pkgs = [
   {
