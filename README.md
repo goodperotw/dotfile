@@ -3,5 +3,5 @@
 ## Install
 
 ```sh
-curl -sL https://tinyurl.com/setup-atomic-fedora | bash
+curl -sL https://tinyurl.com/setup-os | bash
 ```
