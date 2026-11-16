@@ -17,7 +17,7 @@ optional_pkgs = [
   },
   {
     'name': 'developer',
-    'pkgs': ['mise', 'xclip', 'vscodium']
+    'pkgs': ['mise', 'xclip', 'vscodium', 'httpie']
   }
 ]
 
