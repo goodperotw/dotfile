@@ -32,12 +32,12 @@ ans = list(map(lambda i: int(i),input().split(',')))
 for i in ans:
   target_pkgs.extend(optional_pkgs[i]['pkgs'])
 
-![sudo pacman -S --needed @(target_pkgs)]
+![sudo pacman -S --noconfirm --needed @(target_pkgs)]
 
 source_file = Path('~/.xonshrc').expanduser()
 
 if not which('zoxide'):
-  sudo pacman -S zoxide
+  sudo pacman --noconfirm --needed -S zoxide
 
 if which('zoxide') and not which('z'):
   zoxide init xonsh >> ~/.xonshrc
@@ -192,6 +192,6 @@ $PATH.insert(0, '~/.local/share/mise/shims')
 
 pkg_to_remove = ['alacritty', 'firefox', 'fish', 'fisher', 'fish-autopair', 'fish-pure-prompt', 'cachyos-fish-config']
 # ignore even if those packages not exists anymore in the future
-subprocess.run(['sudo', 'pacman', '-R'] + pkg_to_remove, check=False)
+subprocess.run(['sudo', 'pacman', '-R', '--noconfirm'] + pkg_to_remove, check=False)
 
 source ~/.xonshrc

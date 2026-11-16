@@ -1,3 +1,5 @@
+sudo cachyos-rate-mirrors
+sudo pacman -Syu --noconfirm
 if ! [[ $(command -v xonsh) ]]
 then
   sudo pacman -S xonsh
