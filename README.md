@@ -3,5 +3,5 @@
 ## Install
 
 ```sh
-curl -sL https://tinyurl.com/setup-os | bash
+curl -sLO https://tinyurl.com/setup-os && bash setup-os
 ```
